@@ -1,0 +1,116 @@
+@import "../../style.scss";
+//stucture is
+// .classname{
+//     .classname{
+
+//     }
+//     tag{
+
+//     }
+// }
+.navbar {
+  // @include funtion name ($classname)
+  // wrap all the styles of navbar inside themify function name
+  @include themify($themes) {
+    // display both the left and right section horizontolly using flex and align all their items to center
+    display: flex;
+    align-items: center;
+    //give space between both the left and right section
+    justify-content: space-between;
+    padding: 10px 20px;
+    height: 50px;
+    border-bottom: 1px solid grey;
+    //make its position as sticky
+    position: sticky;
+    top: 0;
+    // access the themify function props using themed("property")
+    background-color: themed("bg");
+    color:themed("textColor");
+    z-index: 999;
+    border: none;
+    box-shadow: 5px 5px 5px lightcyan;
+    ;
+    .left {
+        //similar alignment for internal section as of main section 
+      display: flex;
+      align-items: center;
+      //give a gap between elements rows and columns
+      gap: 30px;
+
+      span {
+        font-weight: bold;
+        font-size: 20px;
+        color: themed("logo");
+      }
+
+      .search {
+        //to display search icon and input as flex
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid themed("border");
+        border-radius: 5px;
+        padding: 5px;
+
+        input {
+          border: none;
+          width: 500px;
+          background-color: transparent;
+          color: themed("textColor");
+//eliminte inputs for smaller devices
+          @include mobile{
+            display: none;
+          }
+
+          @include tablet{
+            width: 200px;
+          }
+        }
+      }
+      button{
+        background-color: transparent;
+      }
+    }
+
+    .right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      @include mobile{
+        display: none;
+      }
+      // .toggle-left-bar-btn{
+      //   position: absolute;
+      //   top: 10px;
+      //   left: 0px;
+      //   // right: 10px;
+      //   background-color: #5271ff; // Example button color
+      //   color: white;
+      //   border: none;
+      //   padding: 8px 12px;
+      //   border-radius: 5px;
+      //   cursor: pointer;
+      //   z-index: 2; // Ensure the button is above the left bar content
+      // }
+      .user {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 500;
+
+        @include tablet{
+          display: none;
+        }
+        //styling for logo(standard)
+        img {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+        
+      }
+    }
+  }
+}

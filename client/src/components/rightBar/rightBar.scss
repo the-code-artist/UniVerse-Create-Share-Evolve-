@@ -1,0 +1,110 @@
+@import "../../style.scss";
+
+.rightBar {
+  @include themify($themes) {   
+    flex: 3;
+    position: sticky;
+    top: 70px;
+    height: calc(100vh - 70px);
+    overflow: scroll;
+    background-color: themed("bgSoft");
+
+    @include mobile{
+      display: none;
+    }
+    @include tablet{
+      display: none;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .container {
+      padding: 20px; 
+      padding-left: 0px;
+      padding-right: 40px;
+      // border: 2px solid red;
+      .item {
+        //box shadow
+        -webkit-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
+        -moz-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
+        box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
+        padding: 20px;
+        //space between each container
+        margin-bottom: 20px;
+        border-radius: 15px;
+        background-color: themed("bg");
+        //for top text of each container
+        span {
+          color: gray;
+        }
+//user for set of details and buttons...since we need them in same line thus align items center and justify:content space between
+        .user {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin: 20px 0px;
+
+          .userInfo {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+
+            img {
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              object-fit: cover;
+            }
+//for smaller cirlce which denote online
+            .online {
+              width: 12px;
+              height: 12px;
+              border-radius: 50%;
+              background-color: limegreen;
+            //   technique for give specific online marks for users ..it is an overlay of one shape over other
+              //to give its own position use absolute position
+              //but parent need to have position relative
+              position: absolute;
+              top: 0;
+              //to keep circles on top right corner use left:30px as width of that image
+              left: 30px;
+            }
+
+            p {
+              color: themed("textColorSoft");
+            }
+
+            span {
+              font-weight: 500;
+              color: themed("textColor");
+            }
+          }
+//for set of buttons
+          .buttons {
+            display: flex;
+            align-items: center;    
+            gap: 10px;
+//each  button specification
+            button {
+              border: none;
+              padding: 5px;
+              color: white;
+              cursor: pointer;
+//individual button can be identified by first and last child since only 2 elements are there..
+//it is first and last element among group of same sibling elements
+              &:first-child {
+                background-color: #5271ff;
+              }
+              &:last-child {
+                background-color: #f0544f;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

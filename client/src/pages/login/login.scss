@@ -1,0 +1,139 @@
+.login {
+  height: 100vh;
+  background-image: url("../../assets/home.jpg");
+  width: 100%;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color:transparent;
+
+  .card {
+    width: 80%;
+    max-width: 600px; /* Enlarging the card */
+    background-color:transparent; /* Adding transparency for the glass plate effect */
+    backdrop-filter: blur(10px); /* Glass plate effect */
+    border-radius: 20px; /* Rounded corners */
+    overflow: hidden;
+    display: flex;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    .left {
+      flex: 1;
+      background: transparent,
+        url("https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600")
+          center;
+      background-size: cover;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: #fff;
+      animation: slideInLeft 1s ease;
+
+      h1 {
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 18px;
+        margin-bottom: 30px;
+      }
+
+      .link {
+        color: #fff;
+        text-decoration: none;
+        font-size: 16px;
+        transition: color 0.3s;
+
+        &:hover {
+          color: #ccc;
+        }
+      }
+    }
+
+    .right {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      animation: slideInRight 1s ease;
+      
+      h1 {
+        color: #333;
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        input {
+          border: none;
+          border-bottom: 1px solid #ccc;
+          padding: 15px; /* Enlarging the input fields */
+          font-size: 16px;
+          transition: border-bottom-color 0.3s;
+
+          &:focus {
+            border-bottom-color: #938eef;
+          }
+        }
+
+        .error {
+          color: red;
+          font-size: 14px;
+        }
+
+        button {
+          padding: 15px; /* Enlarging the button */
+          border: none;
+          border-radius: 5px;
+          background-color: #938eef;
+          color: #fff;
+          font-size: 18px;
+          font-weight: bold;
+          cursor: pointer;
+          transition: background-color 0.3s;
+
+          &:hover {
+            background-color: #7e77d1;
+          }
+        }
+
+        .link {
+          color: #333;
+          text-decoration: none;
+          font-size: 16px;
+          transition: color 0.3s;
+
+          &:hover {
+            color: #555;
+          }
+        }
+      }
+    }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+}

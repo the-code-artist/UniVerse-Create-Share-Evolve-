@@ -1,0 +1,68 @@
+// for dark and light mode define the property and their values
+// $themes: (
+//   bg: #ffffff,
+//   textColor: #000000,
+//   logo: #ff0000,
+//   border: #cccccc
+// );
+
+$themes: (
+  light: (
+    textColor: #000,
+    bg: white,
+    logo: darkblue,
+    bgSoft: #f6f3f3,
+    textColorSoft: #555,
+    border: lightgray,
+  ),
+  dark: (
+    textColor: whitesmoke,
+    // bg: rgb(3, 1, 1),
+    bg: rgb(39, 20, 20),
+    logo: white,
+    // bgSoft: rgb(48, 48, 48),
+    bgSoft: rgb(0, 0, 0),
+    textColorSoft: lightgray,
+    border: #444,
+  ),
+);
+
+//@mixin themify(class name)
+@mixin themify($themes) {
+  // map thru each of themes using name as theme
+  @each $theme, $map in $themes {
+    .theme-#{$theme} & {
+      $theme-map: () !global;
+      //change styles for each theme
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), "#{$key}");
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value,
+          )
+        ) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}
+
+// create a mixin mobile(for mobile)
+@mixin mobile {
+  // create a media query and specify its width...
+  @media (max-width: 480px) {
+    // to write any style here mention content...coontent block takes an entire block of style
+    @content;
+  }
+}
+@mixin tablet {
+  @media (max-width: 960px) {
+    @content;
+  }
+}
