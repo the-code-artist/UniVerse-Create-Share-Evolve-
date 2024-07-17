@@ -11,30 +11,6 @@ export const getPosts=(req,res)=>{
   //we get user information object from auth.js of controller when we created token and we can access in it using dot operator
   jwt.verify(token, "secretkey", (err, userInfo) => {
   if (err) return res.status(403).json("Token is not valid!");
-  // console.log("Decoded user information:", userInfo);
-  // const q=`SELECT p.*, u.id AS userId, name, profilePic 
-  // FROM posts AS p 
-  // JOIN users AS u ON u.id = p.userId 
-  // LEFT JOIN relationships AS r ON (p.userId = r.followedUserId OR p.userId = r.followerUserId)
-  // WHERE r.followerUserId = ? OR r.followedUserId = ?
-  // GROUP BY p.id
-  // ORDER BY p.createdAt DESC `; 
-  
-  //   we need everything from posts table but only need id,name and profile pic from users
-  // specifu u.id as user id as id also exists in posts table
-  // on---return only based on join condition
-  //also join relationships table so that we display only our posts and following posts
-  // ? is fetched by our user id
-  //followed=logged in user id and follower=logged in used subscribed posts
-  // const q = 
-  //   `SELECT p.*, u.id AS userId, u.name, u.profilePic
-  //   FROM posts AS p
-  //   JOIN users AS u ON u.id = p.userId
-  //   LEFT JOIN relationships AS r ON (u.id = r.followedUserId OR u.id = r.followerUserId)
-  //   WHERE p.userId = ? OR r.followedUserId = ?
-  //   GROUP BY p.id
-  //   ORDER BY p.createdAt DESC;
-  //   `;
   const q =
       userId !== "undefined"
         ? `SELECT p.*, u.id AS userId, name, profilePic FROM posts AS p JOIN users AS u ON (u.id = p.userId) WHERE p.userId = ? ORDER BY p.createdAt DESC`
@@ -43,14 +19,6 @@ export const getPosts=(req,res)=>{
     ORDER BY p.createdAt DESC`;
     const values =
       userId !== "undefined" ? [userId] : [userInfo.id, userInfo.id];
-
-  // console.log(userId)
-  // db.query(q,(err,data)=>{
-  //   if(err)return res.status(500).json(err.message);
-  //   return res.status(200).json(data);
-  // })
-
-
       db.query(q, values, (err, data) => {
         if (err) {
           console.error("Database error:", err);

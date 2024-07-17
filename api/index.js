@@ -1,9 +1,3 @@
-// basic api testing
-// import express from "express";
-// const app = express();
-// app.listen(5000, () => {
-//   console.log("api running successfully!!!");
-// });
 import express from "express";
 const app = express();
 // import objject from all the routes and also put the extension at the end of path
@@ -16,6 +10,8 @@ import relationshipRoutes from "./routes/relationships.js";
 import multer from "multer";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+// import { Users } from "./users.js";
+import {db} from "./connect.js";
 
 //middlewares
 //to give access to client and server
@@ -26,7 +22,6 @@ app.use((req, res, next) => {
 });
 // to send or recieve json objects from front end to backend
 app.use(express.json());
-// use cors({origin:"link"}) and also cookieParser();
 app.use(
   cors({
     origin: "http://localhost:3000",
@@ -48,6 +43,56 @@ const upload = multer({ storage: storage });
 app.post("/api/upload", upload.single("file"), (req, res) => {
   const file = req.file;
   res.status(200).json(file.filename);
+});
+//search component
+app.get("/", (req, res) => {
+  const { q } = req.query;
+  if (!q) {
+    return res.json([]);
+  }
+
+  const searchTerm = `%${q.toLowerCase()}%`;
+
+  const query = `
+    SELECT * FROM users 
+    WHERE name LIKE ? 
+    LIMIT 10
+  `;
+
+  db.query(query, [searchTerm], (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(results);
+  });
+});
+
+//right side users
+//search component
+app.get("/users-list", (req, res) => {
+  const query = `
+    SELECT * FROM users 
+    LIMIT 8
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(results);
+  });
+});
+app.get("/explore-list", (req, res) => {
+  const query = `
+    SELECT name,profilePic,id FROM users 
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(results);
+  });
 });
 
 // basic endpoint for api

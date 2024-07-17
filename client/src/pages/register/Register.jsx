@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import "./register.scss";
+import { NULL } from "sass";
 
 const Register = () => {
   // State variables for form inputs, errors, and result message
@@ -13,7 +14,7 @@ const Register = () => {
   });
   const [err, setErr] = useState(null);
   const [result, setResult] = useState(null);
-
+  const navigate = useNavigate();
   // Function to handle input changes
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -22,10 +23,16 @@ const Register = () => {
   // Function to handle form submission
   const handleClick = async (e) => {
     e.preventDefault();
+    if (!inputs.username || !inputs.email || !inputs.password || !inputs.name) {
+      setErr("All fields are required.");
+      return;
+    }
+    else setErr(null);
     try {
       // Sending registration request to the server
       await axios.post("http://localhost:8800/api/auth/register", inputs);
       setResult(<p>User created successfully!</p>);
+      setTimeout(()=>navigate("/login"),3000)
     } catch (err) {
       // Handling errors
       setResult(null);
@@ -38,11 +45,9 @@ const Register = () => {
     <div className="register">
       <div className="card">
         <div className="left">
-          <h1>Lama Social.</h1>
+          <h1>Join UniVerse!!</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cum,
-            alias totam numquam ipsa exercitationem dignissimos, error nam,
-            consequatur.
+          The Social Media Hub Exclusively for University Students. Create, Share and Evolve Together!
           </p>
           <span>Do you have an account?</span>
           <Link to="/login">
@@ -78,7 +83,7 @@ const Register = () => {
             />
             {/* Displaying errors and result */}
             {err && <p className="error">{err}</p>}
-            {result && result}
+            {result && <p className="result">{result}</p>}
             {/* Button for registration */}
             <button onClick={handleClick} type="reset">Register</button>
           </form>

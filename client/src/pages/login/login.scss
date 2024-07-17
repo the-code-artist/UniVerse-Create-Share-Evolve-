@@ -39,6 +39,8 @@
       p {
         font-size: 18px;
         margin-bottom: 30px;
+        color: white;
+        font-weight: bold;
       }
 
       .link {
@@ -62,7 +64,7 @@
       animation: slideInRight 1s ease;
       
       h1 {
-        color: #333;
+        color: orange;
         font-size: 36px;
         margin-bottom: 20px;
       }
@@ -78,6 +80,7 @@
           padding: 15px; /* Enlarging the input fields */
           font-size: 16px;
           transition: border-bottom-color 0.3s;
+          border-radius: 10px;
 
           &:focus {
             border-bottom-color: #938eef;
@@ -85,14 +88,15 @@
         }
 
         .error {
-          color: red;
-          font-size: 14px;
+          color: rgb(37, 11, 2);
+          font-size: 20px;
+          font-weight: bold;
         }
 
         button {
           padding: 15px; /* Enlarging the button */
           border: none;
-          border-radius: 5px;
+          border-radius: 10px;
           background-color: #938eef;
           color: #fff;
           font-size: 18px;

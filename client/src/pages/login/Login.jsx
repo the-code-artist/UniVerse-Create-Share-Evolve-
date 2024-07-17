@@ -20,10 +20,11 @@ const Login = () => {
     e.preventDefault();
     try {
       await login(inputs);
-      console.log("user logged in successfully!!");
+      // console.log("user logged in successfully!!");
       navigate("/");
     } catch (err) {
       setErr(err.response.data);
+      
     }
   };
 
@@ -54,9 +55,9 @@ const Login = () => {
             />
             {err && <div className="error">{err}</div>}
             <button onClick={handleLogin}>Login</button>
-            <Link to="/forgot-password" className="link">
+            {/* <Link to="/forgot-password" className="link">
               Forgot password?
-            </Link>
+            </Link> */}
           </form>
         </div>
       </div>

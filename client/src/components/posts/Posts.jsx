@@ -7,54 +7,6 @@ import {
 // import { makeRequest } from "../../axios";
 
 const Posts = ({userId}) => {
-  // TEMPORARY
-  // const posts = [
-  //   {
-  //     id: 1,
-  //     name: "John Doe",
-  //     userId: 1,
-  //     profilePic:
-  //       "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1600",
-  //     desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-  //     img: "https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Jane Doe",
-  //     userId: 2,
-  //     profilePic:
-  //       "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1600",
-  //     desc: "Tenetur iste voluptates dolorem rem commodi voluptate pariatur, voluptatum, laboriosam consequatur enim nostrum cumque! Maiores a nam non adipisci minima modi tempore.",
-  //   },
-  // ];
-  // const { isLoading, error, data } = useQuery({["posts"], () =>
-  //   makeRequest.get("/posts").then((res) => {
-  //     return res.data;
-  //   })
-  // });
-  // const { isLoading, error, data } = useQuery({
-  //   ["posts"],
-  //   () =>
-  //   makeRequest.get("/posts").then((res) =>
-  //       return res.data,
-  //     ),
-  // })
-  // const { isPending, error, data } = useQuery({
-  //   queryKey: ["posts"],
-  //   // queryFn: async () =>{
-  //   //   // await makeRequest.get("/posts").then(res=>{
-  //   //   //   return res.data
-  //   //   // })
-  //   //   const response = await fetch('http://localhost:8800/api/posts');
-  //   //   const data = await response.json();
-  //   //   return data;
-  //   queryFn: () =>
-  //     fetch('http://localhost:8800/api/posts').then((res) =>
-  //       res.json(),
-  //     ),
-
-
-  // })
   const { isPending,error: postsError, data: postsData } = useQuery({
     queryKey: ["posts"],
     queryFn: () => fetch('http://localhost:8800/api/posts?userId='+userId, {
@@ -84,15 +36,6 @@ const Posts = ({userId}) => {
   if (commentsError) {
     return <div>Error fetching comments: {commentsError.message}</div>;
   }
-  // console.log("commentsData:",commentsData)
-  // return (
-  // <div className="posts">
-  //  {data.map((post)=>(
-  //     // outline will be stored in post.jsx
-  //     <Post post={post} key={post.id}/>
-  //   ))} 
-  // </div>
-  // )
   return (
     <div className="posts">
       {isPending ? "Loading..." :

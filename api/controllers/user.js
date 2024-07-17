@@ -20,32 +20,7 @@ export const updateUser = (req, res) => {
   jwt.verify(token, "secretkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
 
-    // const q =
-    //   "UPDATE users SET `name`=?,`city`=?,`website`=?,`profilePic`=?,`coverPic`=? WHERE id=? ";
-    //   const { name, city, website, coverPic, profilePic } = req.body;
-
-    // if (!name ) {
-    //   return res.status(400).json("Missing required fields");
-    // }
-    // return req.body;
-    // const values = [
-    //   req.body.name,
-    //   req.body.city,
-    //   req.body.website,
-    //   req.body.coverPic,
-    //   req.body.profilePic,
-    //   userInfo.id,
-    // ];
-    // // db.query(q, [values], (err, data) => {
-    // //   if (err) res.status(500).json(err.message);
-    // //   if (data && data.affectedRows() > 0) return res.json("Updated!");
-    // //   // return res.json("Updated!");
-    // //   return res.status(403).json("You can update only your post!");
-    // // });
-    // Extract the fields that the user is trying to update
     const { name, city, website, coverPic, profilePic } = req.body;
-
-    // Construct the SQL query dynamically based on the fields provided by the user
     let updateFields = [];
     let values = [];
 
@@ -84,11 +59,6 @@ export const updateUser = (req, res) => {
       // console.log("Query result:", data); // Check the structure of the data object
       const updatedUser = { ...userInfo, ...req.body }; // Assuming userInfo contains existing user details
       return res.json(updatedUser);
-      // if (data && data.affectedRows > 0) {
-      //   return res.json("Updated!");
-      // } else {
-      //   return res.status(404).json("No rows were updated.");
-      // }
     });
   });
 };
