@@ -1,119 +1,99 @@
 import "./leftBar.scss";
-import Friends from "../../assets/1.png";
-import Groups from "../../assets/2.png";
-import Market from "../../assets/3.png";
-import Watch from "../../assets/4.png";
-import Memories from "../../assets/5.png";
-import Events from "../../assets/6.png";
-import Gaming from "../../assets/7.png";
-import Gallery from "../../assets/8.png";
-import Videos from "../../assets/9.png";
-import Messages from "../../assets/10.png";
-import Tutorials from "../../assets/11.png";
-import Courses from "../../assets/12.png";
-import Fund from "../../assets/13.png";
+import HouseIcon from '@mui/icons-material/House';
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import GroupIcon from '@mui/icons-material/Group';
+import FlareRoundedIcon from '@mui/icons-material/FlareRounded';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { AuthContext } from "../../context/authContext";
-import { useContext } from "react";
-import React,{useState,useEffect} from 'react';
+// import { useContext } from "react";
+// import React, { useState, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
+import { DarkModeContext } from "../../context/darkModeContext";
+import { Link } from "react-router-dom";
 const LeftBar = ({ isLeftBarOpen }) => {
-  const { currentUser } = useContext(AuthContext);
-  // const [isOpen, setIsOpen] = useState(true);
-
-  // const handleToggle = () => {
-  //   setIsOpen(!isOpen);
-  // };
-  // const currentUser=true;
-  // console.log("current user:",currentUser)
+  const { currentUser, logout } = useContext(AuthContext);
+  const profilePagePath = `/profile/${currentUser.id}`;
+  const { toggle, darkMode } = useContext(DarkModeContext);
+  const handleLogout = () => {
+    logout(); // Call the logout function from AuthContext
+  };
   const [isOpen, setIsOpen] = useState(isLeftBarOpen);
 
   useEffect(() => {
     setIsOpen(!isLeftBarOpen);
   }, [isLeftBarOpen]);
   return (
-    <div className={`leftBar ${isOpen ? 'open' : 'closed'}`}>
+    <div className={`leftBar ${isOpen ? "open" : "closed"}`}>
       <div className="container">
         {/* container 1 */}
         <div className="menu">
-        <div className="user">
+          <div className="user">
             <img
-              src={"/upload/"+ currentUser.profilePic}
+              src={"/upload/" + currentUser.profilePic}
               alt="not available"
             />
             <span>@{currentUser.name}</span>
-            {/* <span>name</span> */}
           </div>
         </div>
         {/* container 2 */}
         <div className="menu">
-          
-          {/* //all the inner division items have same class names */}
           <div className="item">
-            <img src={Friends} alt="" />
-            <span>Friends</span>
-          </div>
-          <div className="item">
-            <img src={Groups} alt="" />
-            <span>Groups</span>
-          </div>
-          <div className="item">
-            <img src={Market} alt="" />
-            <span>Marketplace</span>
-          </div>
-          <div className="item">
-            <img src={Watch} alt="" />
-            <span>Watch</span>
-          </div>
-          <div className="item">
-            <img src={Memories} alt="" />
-            <span>Memories</span>
+            <Link
+              to="/explore"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <GroupIcon style={{color:"skyblue"}} />
+            </Link>
+              <span style={{ fontSize:"20px" }}>Explore</span>
           </div>
         </div>
         {/* contianer break */}
         {/* <hr /> */}
         {/* container 2 */}
         <div className="menu">
-          <span>Your shortcuts</span>
-          <div className="item">
-            <img src={Events} alt="" />
-            <span>Events</span>
-          </div>
-          <div className="item">
-            <img src={Gaming} alt="" />
-            <span>Gaming</span>
-          </div>
-          <div className="item">
-            <img src={Gallery} alt="" />
-            <span>Gallery</span>
-          </div>
-          <div className="item">
-            <img src={Videos} alt="" />
-            <span>Videos</span>
-          </div>
-          <div className="item">
-            <img src={Messages} alt="" />
-            <span>Messages</span>
+          <span>Other shortcuts</span>
+          <div className="right">
+            <div className="item">
+                <Link
+                  to={profilePagePath}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <AccountCircleRoundedIcon />
+                </Link>
+              <span>Profile</span>
+            </div>
+            <div className="item">
+                <Link
+                  to="/"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                  className="icon-link"
+                >
+                  <HouseIcon />
+                </Link>
+              <span>Home</span>
+            </div>
+            {/* depending on dark mode value toogle and change present icon */}
+            <div className="item">
+                {darkMode ? (
+                  <FlareRoundedIcon onClick={toggle} style={{ cursor:"pointer" }} />
+                ) : (
+                  <DarkModeOutlinedIcon onClick={toggle} style={{ cursor:"pointer" }} />
+                )}
+              <span>Mode</span>
+            </div>
           </div>
         </div>
         {/* container 3 */}
         <div className="menu">
           <span>Others</span>
           <div className="item">
-            <img src={Fund} alt="" />
-            <span>Fundraiser</span>
-          </div>
-          <div className="item">
-            <img src={Tutorials} alt="" />
-            <span>Tutorials</span>
-          </div>
-          <div className="item">
-            <img src={Courses} alt="" />
-            <span>Courses</span>
+            <LogoutIcon onClick={handleLogout} style={{ cursor:"pointer",color:"skyblue" }}/>
+            Logout
+            {/* Call handleLogout function */}
           </div>
         </div>
-      </div> 
-      {/* <button className="toggle-button" onClick={handleToggle}>
-        {isOpen ? 'Close' : 'Open'} Left Bar
-      </button> */}
+      </div>
     </div>
   );
 };

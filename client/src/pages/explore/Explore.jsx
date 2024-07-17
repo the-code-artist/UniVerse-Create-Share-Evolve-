@@ -1,4 +1,4 @@
-import "./rightBar.scss";
+import "./explore.scss";
 import axios from "axios";
 import { useState,useEffect } from "react";
 import Table from "./Table";
@@ -8,7 +8,7 @@ const RightBar = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`http://localhost:8800/users-list`);
+      const res = await axios.get(`http://localhost:8800/explore-list`);
       setData(res.data);
     };
     fetchData()

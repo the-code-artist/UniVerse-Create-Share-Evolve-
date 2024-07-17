@@ -17,7 +17,7 @@ export const register = (req, res) => {
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 // insert the user values from front end into databasek
-    const q =
+    const q = 
       "INSERT INTO users (`id`,`username`,`email`,`password`,`name`) VALUE (?)";
 // instead of writing all the values individually..create a values array which will store all the value and pass it as parameter
     const values = [

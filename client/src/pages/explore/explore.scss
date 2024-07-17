@@ -1,6 +1,6 @@
 @import "../../style.scss";
 
-.rightBar {
+.explore {
   @include themify($themes) {   
     flex: 3;
     position: sticky;
@@ -8,7 +8,8 @@
     height: calc(100vh - 70px);
     overflow: scroll;
     background-color: themed("bgSoft");
-
+    padding: 0px 30px;
+    min-height: 100px;
     @include mobile{
       display: none;
     }
@@ -20,35 +21,45 @@
       display: none;
     }
     .container {
-      padding: 20px; 
-      padding-left: 0px;
-      padding-right: 20px;
+    //   padding: 20px; 
+    //   padding-left: 0px;
+    //   padding-right: 40px;
+      // border: 2px solid red;
+    //   display: flex;
+    //   flex-direction: column;
       .item {
         //box shadow
         -webkit-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
         -moz-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
         box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-        padding: 20px;
+        // padding: 20px;
         //space between each container
         margin-bottom: 20px;
         border-radius: 15px;
         background-color: themed("bg");
         //for top text of each container
         span {
-          color: gray;
+          color: darkkhaki;
+          font-size: 40px;
+          text-align: center;
+          strong
+          {
+            color: darkturquoise;
+          }
         }
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
 //user for set of details and buttons...since we need them in same line thus align items center and justify:content space between
         .user {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
           margin: 20px 0px;
 
           .userInfo {
             text-transform: capitalize;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 20px;
             position: relative;
             // margin-left: 20px;
             color:themed("textColor");
@@ -89,8 +100,7 @@
             display: flex;
             align-items: center;    
             gap: 15px;
-            margin-left: 15px;
-            
+            margin-left: 25px;
 //each  button specification
             button {
               border: none;
@@ -105,8 +115,8 @@
               &:last-child {
                 background-color: blueviolet;
               }
-              min-height: 20px;
-              min-width: 70px;
+              height: 30px;
+              width: 100px;
               // border: 2px solid white;
             }
           }

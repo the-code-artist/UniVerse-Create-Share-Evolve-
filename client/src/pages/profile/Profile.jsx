@@ -1,13 +1,6 @@
 import "./profile.scss";
-import FacebookTwoToneIcon from "@mui/icons-material/FacebookTwoTone";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import PinterestIcon from "@mui/icons-material/Pinterest";
-import TwitterIcon from "@mui/icons-material/Twitter";
 import PlaceIcon from "@mui/icons-material/Place";
 import LanguageIcon from "@mui/icons-material/Language";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Posts from "../../components/posts/Posts";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
@@ -23,7 +16,7 @@ const Profile = () => {
   // to take id number from url use useLocation hook
   //since useLocation() return a string but we want int user id hence use parseInt
   const userId = parseInt(useLocation().pathname.split("/")[2]);
-  // to fetch the users info 
+  // to fetch the users info
   const { isLoading, error, data } = useQuery({
     queryKey: ["user"],
     queryFn: () =>
@@ -71,11 +64,20 @@ const Profile = () => {
       queryClient.invalidateQueries({
         queryKey: ["relationship"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["relationships"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["posts"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["user"],
+      });
     },
   });
 
   const handleFollow = () => {
-    //if clicked to follow then call the mutation 
+    //if clicked to follow then call the mutation
     mutation(relationshipData.includes(currentUser.id));
   };
 
@@ -88,31 +90,17 @@ const Profile = () => {
       ) : (
         <>
           <div className="images">
-            <img src={"/upload/"+data.coverPic} alt="" className="cover" />
-            <img src={"/upload/"+data.profilePic} alt="" className="profilePic" />
+            <img src={"/upload/" + data.coverPic} alt="" className="cover" />
+            <img
+              src={"/upload/" + data.profilePic}
+              alt=""
+              className="profilePic"
+            />
           </div>
           <div className="profileContainer">
             {/* user info container */}
             <div className="uInfo">
               {/* icons container */}
-              <div className="left">
-                <a href="http://facebook.com">
-                  {/* set font size to large */}
-                  <FacebookTwoToneIcon fontSize="large" />
-                </a>
-                <a href="http://facebook.com">
-                  <InstagramIcon fontSize="large" />
-                </a>
-                <a href="http://facebook.com">
-                  <TwitterIcon fontSize="large" />
-                </a>
-                <a href="http://facebook.com">
-                  <LinkedInIcon fontSize="large" />
-                </a>
-                <a href="http://facebook.com">
-                  <PinterestIcon fontSize="large" />
-                </a>
-              </div>
               <div className="center">
                 {/* data.name=user name */}
                 <span>{data.name}</span>
@@ -131,10 +119,9 @@ const Profile = () => {
                 ) : // if user id == current user id then  then we shouldnt have self follow hence we show update button
                 userId === currentUser.id ? (
                   <button onClick={() => setOpenUpdate(true)}>update</button>
-                ) : 
-                // for other users we need to show follow or following functionality
-                // if relationshs data have the currentuser id then it means we are follwing else not
-                (
+                ) : (
+                  // for other users we need to show follow or following functionality
+                  // if relationshs data have the currentuser id then it means we are follwing else not
                   <button onClick={handleFollow}>
                     {relationshipData.includes(currentUser.id)
                       ? "Following"
@@ -142,14 +129,11 @@ const Profile = () => {
                   </button>
                 )}
               </div>
-              <div className="right">
-                <EmailOutlinedIcon />
-                <MoreVertIcon />
-              </div>
             </div>
             {/* to fetch only users profile but not current user profile set the userId prop */}
             <Posts userId={userId} />
           </div>
+          {/* <RightBar /> */}
         </>
       )}
       {/* pop the update form */}

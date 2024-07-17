@@ -1,13 +1,10 @@
 import "./share.scss";
-import Image from "../../assets/img.png";
-// import Map from "../../assets/map.png";
-// import Friend from "../../assets/friend.png";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
-
-const Share = () => {
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+const Share = ({ setOpenShare }) => {
   const [file, setFile] = useState(null);
   const [desc, setDesc] = useState("");
 
@@ -28,19 +25,7 @@ const Share = () => {
   const { currentUser } = useContext(AuthContext);
   const queryClient = useQueryClient();
 
-  // const {mutation,isPending,isError,error} = useMutation(
 
-  // (newPost) => {
-  //   return makeRequest.post("/posts", newPost);
-  // },
-  //   {
-  //     onSuccess: () => {
-  //       // Invalidate and refetch
-  //       queryClient.invalidateQueries(["posts"])
-  //     },
-  //   }
-  // );
-  // useMutation({api functions,on success})
   const { mutate: mutation } = useMutation({
     mutationFn: (newPost) => {
       return makeRequest.post("/posts", newPost);
@@ -61,6 +46,7 @@ const Share = () => {
     // mutation.
     setDesc("");
     setFile(null);
+    setOpenShare(false);
   };
 
   return (
@@ -81,36 +67,37 @@ const Share = () => {
           {/* if file exists then create a fake url to show it on the right of screen while uploading it */}
           {/* by then we are not uploading it...but just storing it in our local storage */}
           <div className="right">
-            {
-              !file&&(
-                <div className="bottom">
-                   <div className="left">
-                      <input
-                          type="file"
-                          id="file"
-                          style={{ display: "none" }}
-                          // since we are adding only 1 image which will be stored in files[0]
-                          onChange={(e) => setFile(e.target.files[0])}
-                      />
-                      <label htmlFor="file">
-                        <div className="item">
-                          <img src={Image} alt="" />
-                          <span>Add Image</span>
-                        </div>
-                      </label>
+            {!file && (
+              <div className="bottom">
+                <div className="left">
+                  <input
+                    type="file"
+                    id="file"
+                    style={{ display: "none" }}
+                    // since we are adding only 1 image which will be stored in files[0]
+                    onChange={(e) => setFile(e.target.files[0])}
+                  />
+                  <label htmlFor="file">
+                    <div className="item">
+                      <AddPhotoAlternateIcon style={{color:"orange"}} />
+                      <span>Add Image</span>
+                    </div>
+                  </label>
                 </div>
-                </div>
-              )
-            }
+              </div>
+            )}
             {file && (
               <img className="file" alt="" src={URL.createObjectURL(file)} />
             )}
             <div className="right">
-            <button onClick={handleClick}>Share</button>
+              <button onClick={handleClick}>Share</button>
             </div>
           </div>
         </div>
         {/* <hr /> */}
+        <button className="close" onClick={() => setOpenShare(false)}>
+          close
+        </button>
       </div>
     </div>
   );

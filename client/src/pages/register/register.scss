@@ -28,21 +28,17 @@
       justify-content: center;
       color: #fff;
       animation: slideInLeft 1s ease;
-      // button{
-      //   cursor: pointer;
-      //   background-color: transparent;
-      //   border: none;
-      //   color: white;
-      //   font-size: 18px;
-      // }
       h1 {
         font-size: 36px;
         margin-bottom: 20px;
+        color: white;
       }
 
       p {
         font-size: 18px;
         margin-bottom: 30px;
+        font-weight: bold;
+        color:white;
       }
       button {
         background-color: transparent;
@@ -78,7 +74,7 @@
       animation: slideInRight 1s ease;
 
       h1 {
-        color: #333;
+        color:orange;
         font-size: 36px;
         margin-bottom: 20px;
       }
@@ -94,21 +90,27 @@
           padding: 15px;
           font-size: 16px;
           transition: border-bottom-color 0.3s;
-
+          border-radius: 10px;
           &:focus {
             border-bottom-color: #938eef;
           }
         }
 
         .error {
-          color: red;
-          font-size: 14px;
+          color: rgb(37, 11, 2);
+          font-size: 20px;
+          font-weight: bold;
+        }
+        .result {
+          color: rgb(37, 11, 2);
+          font-size: 20px;
+          font-weight: bold;
         }
 
         button {
           padding: 15px;
           border: none;
-          border-radius: 5px;
+          border-radius: 10px;
           background-color: #938eef;
           color: #fff;
           font-size: 18px;

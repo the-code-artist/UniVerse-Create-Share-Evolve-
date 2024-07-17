@@ -40,14 +40,6 @@
       opacity: 0;
       pointer-events: none;
     }
-    // border: 2px solid red;
-
-    // .container {
-    //   position: relative;
-    //   // padding: 20px;
-    //   // gap: 10px;
-    //   z-index: 1; // Ensure the container is above the toggle button
-    // }
 // styling all the contaniers
     .container {
         // give space from left side
@@ -63,7 +55,6 @@
     // padding->border->margins
       hr {
         margin: 20px 0px;
-        // border: none;
         // height of hr tags
         height: 0.5px;
         // color of hr tags found by bg color not only color
@@ -71,7 +62,7 @@
       }
     //   each individual container
     //all containers are displayed as flex and in column and gap between each row(container) is 20px
-      .menu {
+      .menu{
         padding: 20px;
         display: flex;
         flex-direction: column;
@@ -81,7 +72,23 @@
         border-radius: 15px;
         //universal stylng of span tags
         span {
-          font-size: 12px;
+          font-size: 15px;
+          color: themed("textColorSoft");
+        }
+        .right{
+          display: flex;
+        flex-direction: column;
+        gap: 20px;
+          .item{
+            gap: 15px;
+            color:lightblue;
+            // cursor: pointer;
+            span{
+
+              font-size: 18px;
+              color: themed("textColor");
+            }
+          }
         }
 //user contains pic and text hence..display as flex and also aligh center as it is combo of pic and text
 //gap is for gap from below element
