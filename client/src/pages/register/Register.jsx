@@ -2,7 +2,6 @@ import { Link,useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import "./register.scss";
-import { NULL } from "sass";
 
 const Register = () => {
   // State variables for form inputs, errors, and result message
