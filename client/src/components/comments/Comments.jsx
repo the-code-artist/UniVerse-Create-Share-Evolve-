@@ -46,7 +46,7 @@ const Comments = ({ postId }) => {
     <div className="comments">
       <div className="write">
         <img src={"/upload/"+currentUser.profilePic} alt="" />
-        <input type="text" placeholder="write a comment"
+        <input type="text" placeholder="write a comment...."
         // update the values
         value={desc}
         onChange={(e) => setDesc(e.target.value)} />

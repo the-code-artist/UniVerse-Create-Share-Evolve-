@@ -2,9 +2,6 @@
 
 .post {
   @include themify($themes) {
-    -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-    -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-    box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
     border-radius: 20px;
     background-color: themed("bg");
     color: themed("textColor");
@@ -42,13 +39,19 @@
         }
         button {
           position: absolute;
-          top: 30px;
+          // top: 30px;
           right: 0;
           border: none;
-          background-color: #f0544f;
+          background-color:red;
           padding: 5px;
           cursor: pointer;
           color: white;
+          text-transform: capitalize;
+          font-size: 15px;
+          // font-weight: bold;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
       }
 

@@ -2,7 +2,8 @@ import "./post.scss";
 import Comments from "../comments/Comments";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
-import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
+import DeleteIcon from '@mui/icons-material/Delete';
+import ChatIcon from '@mui/icons-material/Chat';
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Link } from "react-router-dom";
 import { useState, useEffect  } from "react";
@@ -58,7 +59,6 @@ const Post = ({ post}) => {
   });
   const { mutate:deleteMutation} = useMutation({
     mutationFn:   (postId) => {
-      
       return makeRequest.delete("/posts/"+postId);
     },
       onSuccess: () => {  
@@ -70,6 +70,7 @@ const Post = ({ post}) => {
   const handleLike = () => {
     mutation(data.includes(currentUser.id));
   };
+  const isOwner = post.userId === currentUser.id;
   const handleDelete = () => {
     deleteMutation(post.id);
   };
@@ -93,15 +94,21 @@ const Post = ({ post}) => {
               <span className="date">{moment(post.createdAt).fromNow()}</span>
             </div>
           </div>
-          <MoreHorizIcon onClick={() => setMenuOpen(!menuOpen)} />
-          {menuOpen && post.userId === currentUser.id && (
-            <button onClick={handleDelete}>delete</button>
-          )}
+          <div>
+              {isOwner&&(
+                <>
+                  {!menuOpen&&<MoreHorizIcon onClick={() => setMenuOpen(!menuOpen)} />}
+                  {menuOpen && (
+                    <button onClick={handleDelete}><DeleteIcon style={{"color":"white"}}/> delete</button>
+                  )}
+                </>
+              )}
+          </div>
         </div>
         {/* post details container */}
         <div className="content">
-          <p>{post.desc}</p>
           <img src={"/upload/" + post.img} alt="" />
+          <p>{post.desc}</p>
         </div>
         {/* last icons container */}
         <div className="info">
@@ -117,11 +124,11 @@ const Post = ({ post}) => {
             ) : (
               <FavoriteBorderOutlinedIcon onClick={handleLike} />
             )}
-            {data?.length} Likes
+            {data?data.length:0} Likes
           </div>
           {/* onClick={()=>} */}
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
-            <TextsmsOutlinedIcon />
+            <ChatIcon />
             {totalComments} Comments
           </div>
         </div>

@@ -1,5 +1,14 @@
+@import "../../style.scss";
+
 .posts{
+  @include themify($themes){
   display: flex;
-  flex-direction: column;
-  gap: 50px;
+    flex-direction: column;
+    gap: 50px;
+    .loading{
+      color: themed("textColor");
+      text-align: center;
+      font-size: 20px;
+    }
+  }
 }

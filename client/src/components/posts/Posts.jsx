@@ -1,11 +1,8 @@
 import Post from "../post/Post";
 import "./posts.scss";
 import {
-  useQuery,
+  useQuery
 } from '@tanstack/react-query'
-
-// import { makeRequest } from "../../axios";
-
 const Posts = ({userId}) => {
   const { isPending,error: postsError, data: postsData } = useQuery({
     queryKey: ["posts"],
@@ -19,36 +16,19 @@ const Posts = ({userId}) => {
       },
     }).then(res => res.json())
   });
-  const {  error: commentsError, data: commentsData} = useQuery({
-    queryKey: ["comments"],
-    queryFn: () => fetch('http://localhost:8800/api/comments', {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).then(res => res.json())
-  });
   if (postsError) {
-    return <div>Error fetching posts: {postsError.message}</div>;
-  }
-
-  if (commentsError) {
-    return <div>Error fetching comments: {commentsError.message}</div>;
+    return <div>Unable to fetch posts :( </div>;
   }
   return (
     <div className="posts">
-      {isPending ? "Loading..." :
+      {isPending ? <p className="loading">Loading...</p> :
       // if no loading and no error then map....data.map(()=> </>)
       // data is not an array instead it is an object hence convert it to array first and then map
-        Array.isArray(postsData) && Array.isArray(commentsData) ? postsData.map((post) => {
-          // Filter comments for this post
-          const postComments = commentsData.filter(comment => comment.postId === post.id);
+        Array.isArray(postsData)  ? postsData.map((post) => {
           return (
             <Post
               key={post.id}
               post={post}
-              totalComments={postComments.length}
             />
           );
         }) : console.log("not array")

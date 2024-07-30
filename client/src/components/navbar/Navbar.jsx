@@ -43,21 +43,12 @@ const Navbar = ({ toggleLeftBar })=> {
       <button onClick={() => setOpenShare(true)}>
         Create
         </button>
-        
         <div className="user">
           <img
-            // src={"https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600"}
             src={"/upload/" + currentUser.profilePic}
             alt="check"
           />
           <span>{currentUser.name}</span>
-          {/* {isDropdownOpen && (
-            <div className="dropdown-menu">
-              <button onClick={handleLogout}>Logout</button>
-              <button>Update Profile Pic</button>
-            </div>
-          )} */}
-          {/* <span>Pavan</span> */}
         </div>
       </div>
       {share && <Share setOpenShare={setOpenShare}/>}

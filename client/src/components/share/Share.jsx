@@ -57,7 +57,7 @@ const Share = ({ setOpenShare }) => {
             <img src={"/upload/" + currentUser.profilePic} alt="" />
             <input
               type="text"
-              placeholder={`What's on your mind ${currentUser.name}?`}
+              placeholder={`What's happening ${currentUser.name}?!`}
               // change the description
               onChange={(e) => setDesc(e.target.value)}
               // set the value to desc as the values in the input depends on the data in desc
@@ -90,7 +90,7 @@ const Share = ({ setOpenShare }) => {
               <img className="file" alt="" src={URL.createObjectURL(file)} />
             )}
             <div className="right">
-              <button onClick={handleClick}>Share</button>
+              <button onClick={handleClick}>Post</button>
             </div>
           </div>
         </div>

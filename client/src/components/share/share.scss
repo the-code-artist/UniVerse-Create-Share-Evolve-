@@ -73,7 +73,10 @@
             color: white;
             cursor: pointer;
             background-color: #5271ff;
-            border-radius: 3px;
+            border-radius: 5px;
+            width: 80px;
+            height: 30px;
+            font-size: 15px;
           }
         }
       }
@@ -104,9 +107,9 @@
         display: flex;
         justify-content: flex-end;
         // border: 2px solid red;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         // file===image
         .file {
           width: 100px;
